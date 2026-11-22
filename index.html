@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CrimpLab – How to Crimp Cat5 with RJ45</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+    <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
+    <span id="userChip" class="chip" hidden></span>
+  <a href="#home" class="brand">CrimpLab</a>
+  <nav id="nav">
+    <a href="#home">Home</a>
+    <a href="#video">Video</a>
+    <a href="#overview">Basics</a>
+    <a href="#wiring">Wiring</a>
+    <a href="#steps">Steps</a>
+    <a href="#fix">Troubleshooting</a>
+    <a href="#team">About us</a>
+    <a href="#contact">Contact us</a>
+  </nav>
+  <div class="actions">
+    <button class="btn btn-solid" id="authBtn">Log in</button>
+    <button class="icon-btn" id="themeBtn" aria-label="Switch light and dark theme">
+      <svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <canvas id="binaryBg" aria-hidden="true"></canvas>
+  <div class="hero-text">
+    <h1>Crimp a Cat5 cable<br>in eight steps.</h1>
+    <p class="lead">Learn how to attach an RJ45 connector to Cat5 cable, from stripping the jacket to testing the link. Watch our 10-minute demo, then follow the written guide.</p>
+    <p class="terminal" aria-hidden="true"><span id="typed"></span><i class="cursor"></i></p>
+    <div class="cta-row">
+      <a class="btn btn-solid" href="#video">Watch the video</a>
+      <a class="btn btn-ghost" href="#steps">Read the steps</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="plug">
+      <div class="plug-body"></div>
+      <div class="pins"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="video">
+  <h2>Our 10-minute video</h2>
+  <p class="sub">Press play to watch the full crimping demo.</p>
+  <div class="video-wrap">
+    <div class="frame">
+      <!--
+        SAMPLE VIDEO. To use your own video, do ONE of these:
+        1) Local file: put your video in a "videos" folder and change the src below to "videos/crimping.mp4"
+           (GitHub blocks single files over 100 MB, so compress it or use option 2).
+        2) YouTube: delete the <video> element and use:
+           <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Crimping video" allowfullscreen></iframe>
+      -->
+      <video id="mainVideo" controls preload="metadata" playsinline>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="overview">
+  <h2>What is crimping?</h2>
+  <p class="sub">Crimping presses a connector onto the end of a cable so it holds firmly and makes electrical contact.</p>
+  <div class="grid">
+    <article class="card big">
+      <h3>Cat5 cable</h3>
+      <p>Category 5 cable has four twisted pairs of copper wire (eight wires) inside one jacket. The twists reduce interference. Cat5 supports 100 Mbps Ethernet over up to 100 meters. Cat5e is the improved version and supports 1 Gbps.</p>
+    </article>
+    <article class="card">
+      <h3>RJ45 connector</h3>
+      <p>A clear plastic plug with eight gold-plated pins. Each pin cuts into one wire when crimped.</p>
+    </article>
+    <article class="card">
+      <h3>Why crimp your own?</h3>
+      <p>You get the exact length you need, lower cost, and the skill to repair a damaged end.</p>
+    </article>
+  </div>
+
+  <h3 class="mt">Tools and materials</h3>
+  <div class="tabs" role="tablist" id="toolTabs"></div>
+  <div class="tool-panel" id="toolPanel"></div>
+</section>
+
+<section class="section" id="wiring">
+  <h2>Wiring standards</h2>
+  <p class="sub">Pick a standard to see the color order. Hold the plug with the clip facing down and pins facing you, then read pin 1 from the left.</p>
+  <div class="tabs" id="wireTabs" role="tablist">
+    <button class="tab active" data-std="B">T568B (straight-through)</button>
+    <button class="tab" data-std="A">T568A</button>
+    <button class="tab" data-std="X">Crossover (A to B)</button>
+  </div>
+  <div class="wire-box">
+    <div class="wires" id="wireStrip"></div>
+    <ol class="pinlist" id="pinList"></ol>
+  </div>
+  <p class="note" id="wireNote"></p>
+</section>
+
+<section class="section alt" id="steps">
+  <h2>Step-by-step crimping guide</h2>
+  <p class="sub">Tick each step as you complete it. Log in to save your progress.</p>
+  <div class="progress" aria-label="Progress"><div id="progressBar"></div></div>
+  <p class="progress-label" id="progressLabel">0 of 8 steps done</p>
+  <div class="stepper">
+    <ol class="step-list" id="stepList"></ol>
+    <aside class="step-detail" id="stepDetail"></aside>
+  </div>
+  <div class="cta-row">
+    <button class="btn btn-ghost" id="prevStep">Previous step</button>
+    <button class="btn btn-solid" id="nextStep">Next step</button>
+    <button class="btn btn-ghost" id="resetSteps">Reset progress</button>
+  </div>
+</section>
+
+<section class="section" id="fix">
+  <h2>Troubleshooting and tips</h2>
+  <div class="acc" id="accordion"></div>
+</section>
+
+<section class="section alt" id="team">
+  <h2>About the project</h2>
+  <p class="sub">CrimpLab is our Multimedia project. We are the Powerpuff Girls, and this site teaches how to crimp Cat5 cable with RJ45 connectors.</p>
+  <h3>Meet the Powerpuff Girls</h3>
+  <!-- MEMBER PHOTOS: put each picture in the "images" folder and make sure the file name matches the src below. -->
+  <ul class="members" id="members">
+    <li><span class="avatar">CS<img src="images/cellyn.jpg" alt="Cellyn Sandoval" onerror="this.remove()"></span><span class="mname">Cellyn Sandoval</span></li>
+    <li><span class="avatar">KC<img src="images/kathlen.jpg" alt="Kathlen Mae Callos" onerror="this.remove()"></span><span class="mname">Kathlen Mae Callos</span></li>
+    <li><span class="avatar">AR<img src="images/arika.jpg" alt="Arika Romingquit" onerror="this.remove()"></span><span class="mname">Arika Romingquit</span></li>
+    <li><span class="avatar">JT<img src="images/jenny.jpg" alt="Jenny Mae Tambio" onerror="this.remove()"></span><span class="mname">Jenny Mae Tambio</span></li>
+    <li><span class="avatar">JT<img src="images/jaimie.jpg" alt="Jaimie Tungol" onerror="this.remove()"></span><span class="mname">Jaimie Tungol</span></li>
+  </ul>
+  <button class="btn btn-ghost" id="topBtn">Back to top</button>
+</section>
+
+<section class="section" id="contact">
+  <h2>Contact us</h2>
+  <p class="sub">Have a question about crimping or this project? Send us a message.</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Reach us directly</h3>
+      <p>Email the Powerpuff Girls team:</p>
+      <a id="mailLink" class="mail" href="#"></a>
+      <div class="cta-row">
+        <button class="btn btn-solid" id="mailBtn" type="button">Email us</button>
+        <button class="btn btn-ghost" id="copyMail" type="button">Copy email</button>
+      </div>
+    </div>
+    <form id="contactForm" class="card pane" novalidate>
+      <label for="ctName">Your name</label>
+      <input id="ctName" type="text" autocomplete="name">
+      <small class="err" data-for="ctName"></small>
+      <label for="ctEmail">Your email</label>
+      <input id="ctEmail" type="email" autocomplete="email">
+      <small class="err" data-for="ctEmail"></small>
+      <label for="ctSubject">Topic</label>
+      <select id="ctSubject">
+        <option>Question about crimping</option>
+        <option>Feedback on the website</option>
+        <option>Project inquiry</option>
+        <option>Other</option>
+      </select>
+      <label for="ctMsg">Message</label>
+      <textarea id="ctMsg" rows="5"></textarea>
+      <small class="err" data-for="ctMsg"></small>
+      <button class="btn btn-solid full" type="submit">Send message</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>CrimpLab &middot; Multimedia project &middot; Cat5 and RJ45 crimping guide</footer>
+
+<!-- Auth dialog -->
+<dialog id="authDialog" aria-labelledby="authTitle">
+  <button class="icon-btn close" id="closeAuth" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <h2 id="authTitle">Log in</h2>
+
+  <form id="loginForm" class="pane" novalidate>
+    <label for="liEmail">Email</label>
+    <input id="liEmail" type="email" autocomplete="email">
+    <small class="err" data-for="liEmail"></small>
+    <label for="liPass">Password</label>
+    <div class="pw"><input id="liPass" type="password" autocomplete="current-password"><button type="button" class="show">Show</button></div>
+    <small class="err" data-for="liPass"></small>
+    <label for="liCap">Security check: solve this</label>
+    <div class="captcha">
+      <span class="cap-q" id="capQ" aria-live="polite"></span>
+      <button type="button" class="icon-btn" id="capNew" aria-label="Get a new question"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/></svg></button>
+      <input id="liCap" type="text" inputmode="numeric" autocomplete="off" placeholder="Answer">
+    </div>
+    <small class="err" data-for="liCap"></small>
+    <button class="btn btn-solid full" type="submit">Log in</button>
+    <p class="swap">New here? <button type="button" class="link" data-go="register">Create an account</button></p>
+  </form>
+
+  <form id="regForm" class="pane" hidden novalidate>
+    <label for="rgName">Full name</label>
+    <input id="rgName" type="text" autocomplete="name">
+    <small class="err" data-for="rgName"></small>
+    <label for="rgEmail">Email</label>
+    <input id="rgEmail" type="email" autocomplete="email">
+    <small class="err" data-for="rgEmail"></small>
+    <label for="rgPass">Password</label>
+    <div class="pw"><input id="rgPass" type="password" autocomplete="new-password"><button type="button" class="show">Show</button></div>
+    <div class="meter"><div id="meterBar"></div></div>
+    <small class="hint" id="meterText">Use 8+ characters with upper and lower case letters, a number and a symbol.</small>
+    <small class="err" data-for="rgPass"></small>
+    <label for="rgPass2">Confirm password</label>
+    <input id="rgPass2" type="password" autocomplete="new-password">
+    <small class="err" data-for="rgPass2"></small>
+    <label class="check"><input type="checkbox" id="rgTerms"> I agree to the project terms</label>
+    <small class="err" data-for="rgTerms"></small>
+    <button class="btn btn-solid full" type="submit">Create account</button>
+    <p class="swap">Have an account? <button type="button" class="link" data-go="login">Log in</button></p>
+  </form>
+</dialog>
+
+<div id="toasts" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
