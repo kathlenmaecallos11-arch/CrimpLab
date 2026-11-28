@@ -98,9 +98,9 @@ const C = {
 const SEQ_A = ["wg", "g", "wo", "b", "wb", "o", "wn", "n"];
 const SEQ_B = ["wo", "o", "wg", "b", "wb", "g", "wn", "n"];
 const STD = {
-  B: { seq: SEQ_B, note: "T568A and T568B are both accepted standards. T568B is shown here. Use it on both ends (B–B) for a straight-through cable." },
-  A: { seq: SEQ_A, note: "T568A is just as valid. Use it on both ends (A–A) for a straight-through cable. Do not mix standards on one cable unless you want a crossover." },
-  X: { seq: SEQ_A, note: "A crossover cable has T568A on one end and T568B on the other (A–B). Each row shows End A (T568A) and End B (T568B). Many modern devices support Auto-MDI/MDI-X, so a straight-through cable often works too." }
+  B: { seq: SEQ_B, note: "T568A and T568B are both accepted standards. T568B is shown here. Use it on both ends (B\u2013B) for a straight-through cable." },
+  A: { seq: SEQ_A, note: "T568A is just as valid. Use it on both ends (A\u2013A) for a straight-through cable. Do not mix standards on one cable unless you want a crossover." },
+  X: { seq: SEQ_A, note: "A crossover cable has T568A on one end and T568B on the other (A\u2013B). Each row shows End A (T568A) and End B (T568B). Many modern devices support Auto-MDI/MDI-X, so a straight-through cable often works too." }
 };
 const dot = bg => '<span class="dot" style="background:' + bg + '"></span>';
 function drawWires(std) {
@@ -114,7 +114,7 @@ function drawWires(std) {
     let html = dot(bg) + "<span>Pin " + (i + 1) + ": " + name + "</span>";
     if (std === "X") {
       const [n2, bg2] = C[SEQ_B[i]];
-      html += '<span class="arrow" aria-hidden="true">⇄</span>' + dot(bg2) + "<span>" + n2 + "</span>";
+      html += '<span class="arrow" aria-hidden="true">\u21c4</span>' + dot(bg2) + "<span>" + n2 + "</span>";
       if (SEQ_B[i] !== k) li.classList.add("diff");
     }
     li.innerHTML = html;
@@ -165,20 +165,20 @@ function drawMap(el, map, seq, endA, endB) {
   }
   el.append(svg);
 }
-drawMap($("#mapStraight"), STRAIGHT, SEQ_B, "End A · T568B", "End B · T568B");
-drawMap($("#mapCross"), XMAP, SEQ_A, "End A · T568A", "End B · T568B");
+drawMap($("#mapStraight"), STRAIGHT, SEQ_B, "End A \u00b7 T568B", "End B \u00b7 T568B");
+drawMap($("#mapCross"), XMAP, SEQ_A, "End A \u00b7 T568A", "End B \u00b7 T568B");
 
 /* ---------- Steps ---------- */
 const SETS = {
   straight: {
     note: "Use the same wiring standard on both ends: T568A at both ends or T568B at both ends.",
     steps: [
-      ["Strip the cable jacket", "Prepare", "Remove about 1–2 inches (2.5–5 cm) of the outer jacket carefully to expose the twisted pairs. Avoid nicking the copper conductors.", "If you see bare copper on a wire, you cut too deep. Cut the end off and start again."],
+      ["Strip the cable jacket", "Prepare", "Remove about 1\u20132 inches (2.5\u20135 cm) of the outer jacket carefully to expose the twisted pairs. Avoid nicking the copper conductors.", "If you see bare copper on a wire, you cut too deep. Cut the end off and start again."],
       ["Arrange the wires", "Wiring", "Untwist and arrange all 8 wires in the chosen T568A or T568B color order.", "Do not untwist the pairs more than necessary. Pinch the wires flat between your fingers so they stay in order.", "std"],
       ["Straighten and trim", "Wiring", "Straighten the conductors and cut them evenly so they are the proper length for the connector.", "Too long and the jacket will not reach the clip. Too short and the pins miss the copper."],
       ["Insert into the RJ45 plug", "Crimp", "Place the wires in the correct slots. For a closed-end plug, check that each wire reaches the front. For a pass-through plug, confirm the order as the wires emerge.", "Check the color sequence before crimping. Hold the plug the way your connector manufacturer shows."],
       ["Crimp the connector", "Crimp", "Use a crimping tool compatible with the connector type. Press firmly as instructed by the tool manufacturer.", "Pass-through plugs need a compatible pass-through crimper."],
-      ["Repeat the same standard on the other end", "Crimp", "If the first end is T568A, use T568A on the other end. If the first end is T568B, use T568B on the other end.", "A–A or B–B is straight-through. Mixing A and B makes a crossover.", "std"],
+      ["Repeat the same standard on the other end", "Crimp", "If the first end is T568A, use T568A on the other end. If the first end is T568B, use T568B on the other end.", "A\u2013A or B\u2013B is straight-through. Mixing A and B makes a crossover.", "std"],
       ["Test the cable", "Test", "Use a LAN cable tester. Check that all 8 pins show the correct sequence and that there are no missing, crossed, or shorted connections.", 'Not sure what a result means? Try the <a href="#fix">virtual tester</a>.']
     ]
   },
@@ -188,7 +188,7 @@ const SETS = {
       ["Prepare the cable", "Prepare", "Strip the jacket and carefully separate the 8 conductors.", "Avoid nicking the copper conductors."],
       ["Wire End A using T568A", "End A", "Arrange, trim, insert into the connector, and crimp using the T568A sequence.", "Check the color sequence before crimping.", "A"],
       ["Wire End B using T568B", "End B", "Arrange the other end using the T568B sequence, then insert and crimp.", "This is the only difference from a straight-through cable.", "B"],
-      ["Test the cable", "Test", "Use a cable tester to confirm the intended crossover wiring and check for faults.", 'On a crossover, expect pins 1↔3 and 2↔6 to swap. That is correct. See the <a href="#fix">virtual tester</a>.']
+      ["Test the cable", "Test", "Use a cable tester to confirm the intended crossover wiring and check for faults.", 'On a crossover, expect pins 1\u21943 and 2\u21946 to swap. That is correct. See the <a href="#fix">virtual tester</a>.']
     ]
   }
 };
@@ -238,8 +238,8 @@ $("#resetSteps").onclick = () => { done = []; cur = 0; store.set(userKey(), done
 const REMIND = [
   "Check the wire color sequence before crimping.",
   "T568A and T568B are both valid wiring standards.",
-  "Straight-through cables can use A–A or B–B.",
-  "Crossover cables use A–B.",
+  "Straight-through cables can use A\u2013A or B\u2013B.",
+  "Crossover cables use A\u2013B.",
   "Use connectors and crimping tools that are compatible with each other.",
   "Do not nick the copper wires or untwist the pairs more than necessary.",
   "Test the finished cable before using it."
@@ -289,11 +289,11 @@ function verdict() {
     const got = S.map(i);
     if (!got.length) miss.push(i + 1);
     else if (got.length > 1) short.push(got.map(x => x + 1).join(" & "));
-    else if (got[0] !== S.want[i]) swap.push((i + 1) + "→" + (got[0] + 1));
+    else if (got[0] !== S.want[i]) swap.push((i + 1) + "\u2192" + (got[0] + 1));
   }
   const bad = miss.length || short.length || swap.length;
   const out = $("#verdict"); out.className = "verdict " + (bad ? "bad" : "ok");
-  if (!bad) out.textContent = scen === 1 ? "Pass. Pins 1↔3 and 2↔6 swap, which is correct for a crossover cable." : "Pass. All 8 lights flashed in order from 1 to 8.";
+  if (!bad) out.textContent = scen === 1 ? "Pass. Pins 1\u21943 and 2\u21946 swap, which is correct for a crossover cable." : "Pass. All 8 lights flashed in order from 1 to 8.";
   else {
     const parts = [];
     if (miss.length) parts.push("pin " + miss.join(", ") + " never lit on the remote unit (a wire is not making contact)");
@@ -312,7 +312,7 @@ $("#runTest").onclick = () => {
     verdict();
   };
   if (fast) return finish();
-  $("#runTest").disabled = true; $("#verdict").textContent = "Testing…";
+  $("#runTest").disabled = true; $("#verdict").textContent = "Testing\u2026";
   let i = 0;
   tTimer = setInterval(() => {
     a.concat(b).forEach(l => l.classList.remove("on", "badled"));
@@ -331,7 +331,7 @@ const FAQ = [
   ["The cable is slow or drops", "Untwisting the pairs more than necessary causes interference. Keep the pairs twisted up to the plug, and test the finished cable before using it."],
   ["The pass-through plug will not crimp", "Pass-through plugs need a compatible pass-through crimper. A standard crimper may not support them. Use the compatibility check in the Basics section."],
   ["T568A or T568B?", "Both are valid. For a straight-through cable, pick either one and use it on both ends. If you already have cables in your building, match what they use."],
-  ["Do I need a crossover cable?", "Rarely. A crossover (A–B) was traditionally used to connect similar devices directly, but many modern devices support Auto-MDI/MDI-X and work with a straight-through cable."],
+  ["Do I need a crossover cable?", "Rarely. A crossover (A\u2013B) was traditionally used to connect similar devices directly, but many modern devices support Auto-MDI/MDI-X and work with a straight-through cable."],
   ["Cat5e or Cat6?", "The crimping process is the same. Both carry gigabit Ethernet, and Cat6 gives more headroom. Make sure your plugs are rated for the cable you buy."]
 ];
 FAQ.forEach(([q, a]) => { const d = document.createElement("details"); d.innerHTML = "<summary>" + q + "</summary><p>" + a + "</p>"; $("#accordion").append(d); });
